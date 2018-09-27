@@ -62,10 +62,10 @@ client.on('message', message => {
     )
     const embed = new Discord.RichEmbed()
         .setColor("RANDOM")
-          .setDescription(":link:تم أرسال الرابط برسالة خاصة")
+          .setDescription("تم أرسال الرابط برسالة خاصة")
            .setAuthor(client.user.username, client.user.avatarURL)
                  .setAuthor(client.user.username, client.user.avatarURL)
-                .setFooter(STARS SERVER .)
+                .setFooter('طلب بواسطة: ' + message.author.tag)
 
       message.channel.sendEmbed(embed).then(message => {message.delete(10000)})
               const Embed11 = new Discord.RichEmbed()
@@ -75,7 +75,6 @@ client.on('message', message => {
       message.author.sendEmbed(Embed11)
     }
 }); 
-
 
 const fs = require('fs');
 var Swears = JSON.parse(fs.readFileSync("./swears.json", "utf8"));
