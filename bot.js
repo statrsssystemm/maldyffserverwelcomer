@@ -62,10 +62,10 @@ client.on('message', message => {
     )
     const embed = new Discord.RichEmbed()
         .setColor("RANDOM")
-          .setDescription("تم أرسال الرابط برسالة خاصة")
+          .setDescription(":link:تم أرسال الرابط برسالة خاصة")
            .setAuthor(client.user.username, client.user.avatarURL)
                  .setAuthor(client.user.username, client.user.avatarURL)
-                .setFooter('طلب بواسطة: ' + message.author.tag)
+                .setFooter('طلب بواسطة : ' + message.author.tag)
 
       message.channel.sendEmbed(embed).then(message => {message.delete(10000)})
               const Embed11 = new Discord.RichEmbed()
@@ -76,9 +76,12 @@ client.on('message', message => {
     }
 }); 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-/////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 client.on('messageDelete', message => {
  
     if(message.author.bot) return;
@@ -722,7 +725,7 @@ channel.guild.owner.send(`<@!${channelremover.id}>
 
 
 client.on('message', message => {
-var prefix = "#stars";
+var prefix = "#vip";
  
   if (!message.content.startsWith(prefix)) return;
   var args = message.content.split(' ').slice(1);
