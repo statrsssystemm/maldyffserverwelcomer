@@ -78,8 +78,97 @@ client.on('message', message => {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+client.on("message", message => {
+    var prefix = "#";
+        if (message.author.id === client.user.id) return;
+        if (message.guild) {
+       let embed = new Discord.RichEmbed()
+        let args = message.content.split(' ').slice(1).join(' ');
+    if(message.content.split(' ')[0] == prefix + 'bc') {
+        if (!args[1]) {
+    message.channel.send("**bc <message>**");
+    return;
+    }
+            message.guild.members.forEach(m => {
+       if(!message.member.hasPermission('ADMINISTRATOR')) return;
+                m.send(args);
+            });
+            const AziRo = new Discord.RichEmbed()
+            .setAuthor(message.author.username, message.author.avatarURL)   
+            .setTitle('✅| جاري ارسال رسالتك ') 
+            .addBlankField(true)
+            .addField('♨| عدد الاعضاء المرسل لهم ', message.guild.memberCount , true)        
+            .addField('📝| الرسالة ', args)
+            .setColor('RANDOM')  
+            message.channel.sendEmbed(AziRo);          
+        }
+        } else {
+            return;
+        }
+    });
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+client.on("message", message => {
+  let command = message.content.split(" ")[0];
+  if (command === "اسكت") {
+          if(!message.channel.guild) return message.reply('**:x: اسف لكن هذا الامر للسيرفرات فقط **');
+                  if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** لا يوجد لديك برمشن 'Manage Roles' **");
+  let user = message.mentions.users.first();
+  let modlog1 = client.channels.find('name', 'log');
+  let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Muted');
+  if (!modlog1) return message.reply("** يوجد الروم المراد ارسال المعلومات له 'Mute-Log'**");
+  if (message.mentions.users.size < 1) return message.reply('** يجب عليك المنشن اولاً **');
+  const embed = new Discord.RichEmbed()
+    .setColor(720505)
+    .addField('Mute', ' | :white_check_mark: |')
+    .addField('Muted', `${user.username}#${user.discriminator} `)
+    .addField('By:', `${message.author.username}#${message.author.discriminator}`)
+   message.channel.send({embed: embed});
+ 
+  if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('** لا يوجد لدي برمشن Manage Roles **').catch(console.error);
+ 
+  if (message.guild.member(user).roles.has(muteRole.id)) {
+      client.channels.get(modlog1.id).send({embed}).catch(console.error);
+  } else {
+    message.guild.member(user).addRole(muteRole).then(() => {
+      client.channels.get(modlog1.id).send({embed}).catch(console.error);
+    });
+  }
+ 
+};
+ 
+ 
+ 
+  if (command === "تكلم") {
+          if(!message.channel.guild) return message.reply('**:x: اسف لكن هذا الامر للسيرفرات فقط **');        
+        if (!message.member.hasPermission('MANAGE_ROLES')) return message.reply("** لا يوجد لديك برمشن 'Manage Roles' **");
+  let user = message.mentions.users.first();
+  let modlog2 = client.channels.find('name', 'log');
+  let muteRole = client.guilds.get(message.guild.id).roles.find('name', 'Muted');
+  if (!muteRole) return message.reply("** لا يوجد رتبة الميوت 'Muted' **");
+  if (!modlog2) return message.reply("**لا يوجد الروم المراد ارسال المعلومات له 'Mute-Log'**");
+  if (message.mentions.users.size < 1) return message.reply('** يجب عليك المنشن اولاً **');
+  const embed = new Discord.RichEmbed()
+    .setColor(0x00AE86)
+    .addField('UnMute ', ' | :white_check_mark: |')
+    .addField('Unmuted', `${user.username}#${user.discriminator} `)
+    .addField('By:', `${message.author.username}#${message.author.discriminator}`)
+   message.channel.send({embed: embed});
+ 
+  if (!message.guild.member(client.user).hasPermission('MANAGE_ROLES_OR_PERMISSIONS')) return message.reply('** لا يوجد لدي برمشن Manage Roles **');
+ 
+  if (message.guild.member(user).removeRole(muteRole.id)) {
+      client.channels.get(modlog2.id).send({embed});
+  } else {
+    message.guild.member(user).removeRole(muteRole).then(() => {
+      client.channels.get(modlog2.id).send({embed});
+    });
+  }
+ 
+};
+ 
+});
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 client.on('messageDelete', message => {
