@@ -256,28 +256,40 @@ var prefix = "#";
        
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const sWlc = {}
-const premium = ['389090790984515594']
-client.on('message', message => {
-var prefix = "#";
-if(message.channel.type === "dm") return;
-if(message.author.bot) return;
-  if(!sWlc[message.guild.id]) sWlc[message.guild.id] = {
-    channel: "stars"
-}
-const channel = sWlc[message.guild.id].channel
-  if (message.content.startsWith(prefix + "setwelcomer")) {
-    if(!message.member.hasPermission(`MANAGE_GUILD`)) return;
-    let newChannel = message.content.split(' ').slice(1).join(" ")
-    if(!newChannel) return message.reply(`**${prefix}setwelcomer <channel name>**`)
-    sWlc[message.guild.id].channel = newChannel
-    message.channel.send(`**${message.guild.name}'s channel has been changed to ${newChannel}**`);
-  }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+client.on ("guildMemberAdd", member => {
+  
+   var role = member.guild.roles.find ("name", ". Stars");
+   member.addRole (role);
+  
+})
+
+clint.on ("guildMemberRemove", member => {
+   
+})
+
+/////////////////////////////////////////////////////////////////////////////////
+const bannedwords = [
+    "كسمك",
+    "انيكك",
+    "اختك",
+    "عرضك",   
+     "نيك",
+    "كسختك",
+    "شرموط",
+    "متناك",
+    "خول",
+    "معرص"
+
+  ];
+
+client.on('message',  message => {
+  if(bannedwords.some(word => message.content.includes(word))) {
+    message.delete()
+    message.reply(" إحترم نفسك , يمنع آلسب هنا .. وإلا ستتعرض للميوت !! ").then(msg => {msg.delete(5000)});;
+  };
 });
- 
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 client.on("guildMemberAdd", member => {
       if(!sWlc[member.guild.id]) sWlc[member.guild.id] = {
     channel: "stars"
